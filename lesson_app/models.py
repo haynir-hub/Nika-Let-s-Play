@@ -1,21 +1,18 @@
-from lesson_app import db, login
+# lesson_app/models.py
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+from lesson_app import db
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
-    password_hash = db.Column(db.String(128))
+    username = db.Column(db.String(64), unique=True, index=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
 
-    def set_password(self, password):
+    def set_password(self, password: str) -> None:
         self.password_hash = generate_password_hash(password)
 
-    def check_password(self, password):
+    def check_password(self, password: str) -> bool:
         return check_password_hash(self.password_hash, password)
 
-    def __repr__(self):
-        return f'<User {self.username}>'
-
-@login.user_loader
-def load_user(id):
-    return User.query.get(int(id))
+    def __repr__(self) -> str:
+        return f"<User {self.username}>"
