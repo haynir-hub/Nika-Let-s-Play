@@ -26,6 +26,5 @@ COPY . /app
 ENV PORT=8000
 EXPOSE 8000
 
-# Start server
-CMD ["sh","-c","gunicorn -b 0.0.0.0:${PORT:-8000} run:app"]
-
+# TEMP: run via Python to get full traceback (easier to debug)
+CMD ["python", "run.py"]
