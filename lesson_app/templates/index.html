@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIKA - LET'S PLAY</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <img src="{{ url_for('static', filename='logo_main.png') }}" alt="NIKA LET'S PLAY Logo" class="main-logo">
+        </header>
+
+        <main>
+            <div class="welcome-message">
+                שלום, {{ current_user.username }}
+            </div>
+
+            <form action="{{ url_for('routes.create_pdf_route') }}" method="POST">
+                <div class="form-group">
+                    <label for="warmup">בחר משחקון חימום:</label>
+                    <select name="warmup" id="warmup">
+                        {% for game in data['חימום'] %}
+                            <option value="{{ game }}">{{ game }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="main">בחר משחקון עיקרי:</label>
+                    <select name="main" id="main">
+                        {% for game in data['עיקרי'] %}
+                            <option value="{{ game }}">{{ game }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="cooldown">בחר משחק סיום:</label>
+                    <select name="cooldown" id="cooldown">
+                        {% for game in data['סיום'] %}
+                            <option value="{{ game }}">{{ game }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button type="submit">צור מערך שיעור (PDF)</button>
+            </form>
+            
+            <div class="admin-links">
+                {% if current_user.username == 'Hay' %}
+                    <a href="{{ url_for('routes.manage_users') }}">ניהול מאמנים</a>
+                    <span>|</span>
+                    <a href="{{ url_for('routes.manage_games') }}">ניהול משחקים</a>
+                {% else %}
+                    <div></div>
+                {% endif %}
+                <a href="{{ url_for('routes.logout') }}" class="logout-button">התנתק</a>
+            </div>
+        </main>
+
+        <footer>
+            {{ footer_text }}
+        </footer>
+    </div>
+
+</body>
+</html>

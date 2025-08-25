@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>מערך שיעור</title>
+</head>
+<body>
+  <div class="sheet">
+
+    <!-- פס עליון -->
+    <header class="topbar">
+      <div class="brand">
+        <img src="{{ logo_path }}" alt="NIKA Logo" class="logo">
+      </div>
+      <div class="doc-header">
+        <h1 class="doc-title">מערך שיעור</h1>
+        <div class="date-text">{{ today_date }}</div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      {% if warmup %}
+      <section class="card">
+        <div class="section-head">
+          <div class="section-chip">משחקון חימום:</div>
+          <h2 class="exercise-title">"{{ warmup.title }}"</h2>
+        </div>
+
+        <div class="card-grid">
+          <div class="card-text">
+            {% if warmup.bullets %}
+            <ul class="bullet-list">
+              {% for bullet in warmup.bullets %}
+              <li>{{ bullet }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {% if warmup.image_path %}
+          <div class="card-media">
+            <img src="{{ warmup.image_path }}" alt="" class="exercise-image">
+          </div>
+          {% endif %}
+        </div>
+      </section>
+      {% endif %}
+
+      {% if main %}
+      <section class="card">
+        <div class="section-head">
+          <div class="section-chip">משחקון עיקרי:</div>
+          <h2 class="exercise-title">"{{ main.title }}"</h2>
+        </div>
+
+        <div class="card-grid">
+          <div class="card-text">
+            {% if main.bullets %}
+            <ul class="bullet-list">
+              {% for bullet in main.bullets %}
+              <li>{{ bullet }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {% if main.image_path %}
+          <div class="card-media">
+            <img src="{{ main.image_path }}" alt="" class="exercise-image">
+          </div>
+          {% endif %}
+        </div>
+      </section>
+      {% endif %}
+
+      {% if cooldown %}
+      <section class="card">
+        <div class="section-head">
+          <div class="section-chip">משחקון סיום:</div>
+          <h2 class="exercise-title">"{{ cooldown.title }}"</h2>
+        </div>
+
+        <div class="card-grid">
+          <div class="card-text">
+            {% if cooldown.bullets %}
+            <ul class="bullet-list">
+              {% for bullet in cooldown.bullets %}
+              <li>{{ bullet }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+          </div>
+          {% if cooldown.image_path %}
+          <div class="card-media">
+            <img src="{{ cooldown.image_path }}" alt="" class="exercise-image">
+          </div>
+          {% endif %}
+        </div>
+      </section>
+      {% endif %}
+
+    </main>
+  </div>
+
+  <!-- פוטר קבוע בכל עמוד -->
+  <footer class="footer">
+    כל הזכויות שמורות לעמותת ניקה ספורט וקהילה. אין לעשות שימוש בתוכן ללא אישור מראש ובכתב מהעמותה.
+  </footer>
+</body>
+</html>

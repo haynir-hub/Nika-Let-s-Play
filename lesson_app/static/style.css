@@ -1,0 +1,114 @@
+body {
+    margin: 0;
+    font-family: 'Assistant', sans-serif;
+    /* רקע צבעוני כמו בדוגמה */
+    background: #5c258d;
+    background: -webkit-linear-gradient(to right, #4389a2, #5c258d);
+    background: linear-gradient(to right, #4389a2, #5c258d);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main-logo {
+    max-width: 80%;
+    height: auto;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: 'Assistant', sans-serif;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #e91e63;
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Assistant', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #c2185b;
+}
+
+/* --- עיצוב חדש לקישורי ניהול והתנתקות --- */
+.admin-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.admin-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.admin-links a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.logout-button {
+    background-color: #888888;
+}
+/* --- סוף העיצוב החדש --- */
+
+footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.welcome-message {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
