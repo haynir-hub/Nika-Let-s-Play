@@ -1,7 +1,17 @@
-# ---- Base Python ----
+# ===== בסיס פייתון דק (Debian bookworm) =====
 FROM python:3.11-slim
 
-# WeasyPrint system deps (Debian bookworm names)
+# למנוע דיאלוגים בזמן apt-get
+ENV DEBIAN_FRONTEND=noninteractive
+ENV LANG=C.UTF-8
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+# ===== ספריות מערכת ש־WeasyPrint צריך + פונטים עם עברית =====
+# הערה: שמות החבילות נכונים ל-bookworm. כולל פונטים:
+# - fonts-dejavu (כללי)
+# - fonts-freefont-ttf (כולל עברית בסיסית)
+# - fonts-noto-core (כולל Noto Sans Hebrew)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libcairo2 \
     libpango-1.0-0 \
@@ -10,21 +20,25 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libffi8 \
     shared-mime-info \
     fonts-dejavu \
+    fonts-freefont-ttf \
+    fonts-noto-core \
     && rm -rf /var/lib/apt/lists/*
 
-# Workdir
+# ===== תיקיית עבודה =====
 WORKDIR /app
 
-# Python deps
+# ===== התקנת תלויות פייתון =====
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# App code
+# ===== קוד האפליקציה =====
+# (כולל lesson_app/, templates/, static/, games.json, logo.png, run.py וכו')
 COPY . /app
 
-# Render supplies PORT via env
+# ===== פורט שהאפליקציה מאזינה עליו =====
 ENV PORT=8000
 EXPOSE 8000
 
-# TEMP: run via Python to get full traceback (easier to debug)
-CMD ["python", "run.py"]
+# ===== הרצה ב-Gunicorn =====
+# וורקר אחד מספיק (החבילה החינמית), timeout נדיב ליצירת PDF.
+CMD ["sh", "-c", "gunicorn -w 1 --timeout 120 --log-level info -b 0.0.0.0:${PORT:-8000} run:app"]
